@@ -2,6 +2,22 @@
 
 Receive data from restricted ssh clients and add it to a redis list.
 
+## How to read it back?
+
+```
+def stream(redis, queue):
+    while True:
+        _, value = redis.brpop(queue, 0)
+        value = str(value, 'utf-8')
+        value = json.loads(value)
+        yield value
+
+
+redis = StrictRedis('localhost')
+for x in stream(redis, 'test-q'):
+    print(x)
+```
+
 ## Why?
 
 Because, obviously:
