@@ -28,7 +28,6 @@ def main():
     })
     redis = StrictRedis(REDIS_HOST, password=REDIS_PASSWD)
     redis.lpush(queue, x)
-    redis.disconnect()
 
 
 if __name__ == '__main__':
